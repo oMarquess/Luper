@@ -57,7 +57,7 @@ class MovieRating(models.Model):
     ('Adventure and Exploration', 'Adventure and Exploration'),
 ]
 
-    theme_label = models.CharField(max_length=50)  # Predefined labels
+    theme_label = models.CharField(max_length=50, choices=THEME_CHOICES)  # Predefined labels
     theme_description = models.TextField(max_length=2000, verbose_name="theme description")  # Open-ended description
 
     created_at = models.DateTimeField(auto_now_add=True)
