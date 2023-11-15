@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'users',
     'ratings',
+    'movies',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
