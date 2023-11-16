@@ -3,6 +3,61 @@
 {% load static %}
   <!-- End Hero Section -->
   {% block content %}
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero d-flex align-items-center">
+    <div class="container">
+      <div class="row gy-4 d-flex justify-content-between">
+        <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h2 data-aos="fade-up">Discover Movies Through Parental Eyes with Luper</h2>
+          <p data-aos="fade-up" data-aos-delay="100">Embark on a cinematic journey where every movie tells a story beyond the screen. At Luper, we bring together parents from all walks of life to rate and review movies on IMDB, providing a unique perspective on what's suitable for family viewing. Dive into our extensive collection and find the perfect movie for your next family movie night.</p>
+  
+          <form action="{% url 'search_results' %}" method="get" class="form-search d-flex align-items-stretch mb-3" data-aos="fade-up" data-aos-delay="200">
+            <input type="text" class="form-control" name="query" placeholder="Search by Movie Title or Genre">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form>
+  
+          <div class="row gy-4" data-aos="fade-up" data-aos-delay="400">
+  
+            <div class="col-lg-3 col-6">
+              <div class="stats-item text-center w-100 h-100">
+                <span data-purecounter-start="0" data-purecounter-end="5000" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Rated Movies</p>
+              </div><!-- End Stats Item -->
+            </div>
+  
+            <div class="col-lg-3 col-6">
+              <div class="stats-item text-center w-100 h-100">
+                <span data-purecounter-start="0" data-purecounter-end="1200" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Parental Reviews</p>
+              </div><!-- End Stats Item -->
+            </div>
+  
+            <div class="col-lg-3 col-6">
+              <div class="stats-item text-center w-100 h-100">
+                <span data-purecounter-start="0" data-purecounter-end="300" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Family Genres</p>
+              </div><!-- End Stats Item -->
+            </div>
+  
+            <div class="col-lg-3 col-6">
+              <div class="stats-item text-center w-100 h-100">
+                <span data-purecounter-start="0" data-purecounter-end="800" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Active Members</p>
+              </div><!-- End Stats Item -->
+            </div>
+  
+          </div>
+        </div>
+  
+        <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+          <img src="{% static 'assets/img/hero-img.svg' %}" class="img-fluid mb-3 mb-lg-0" alt="Luper Hero Image">
+        </div>
+  
+      </div>
+    </div>
+  </section><!-- End Hero Section -->
+  
+
   <main id="main">
 
     <!-- ======= Featured Services Section ======= -->
@@ -52,7 +107,7 @@
         <div class="row gy-4">
           <div class="col-lg-6 position-relative align-self-start order-lg-last order-first">
             <img src="{% static 'assets/img/about.jpg' %}" class="img-fluid" alt="About Luper">
-            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>
+            <a href="#" class="glightbox play-btn"></a>
           </div>
           <div class="col-lg-6 content order-last  order-lg-first">
             <h3>About Luper</h3>
@@ -99,36 +154,20 @@
         </div>
 
         <div class="row gy-4">
-
+          {% for item in movies_with_ratings %}
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="card">
-              <div class="card-img">
-                <img src="{% static 'assets/img/storage-service.jpg' %}" alt="" class="img-fluid">
+              <div class="card movie-card">
+                  <img src="{{ item.image_url }}" alt="" class="img-fluid movie-card-img">
+                  <div class="card-body movie-card-body">
+                      <h3><a href="#" class="stretched-link">{{ item.movie.title }}</a></h3>
+                      <p>Average Rating: {{ item.average_rating }}</p>
+                      <p>Year: {{ item.movie.year }}</p>
+                      <p>Star Rating: {{ item.movie.star_rating }}</p>
+                      <p>Duration: {{ item.movie.duration }}</p>
+                  </div>
               </div>
-              <h3><a href="service-details.html" class="stretched-link">Storage</a></h3>
-              <p>Cumque eos in qui numquam. Aut aspernatur perferendis sed atque quia voluptas quisquam repellendus temporibus itaqueofficiis odit</p>
-            </div>
-          </div><!-- End Card Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="card">
-              <div class="card-img">
-                <img src="{% static 'assets/img/logistics-service.jpg' %}" alt="" class="img-fluid">
-              </div>
-              <h3><a href="service-details.html" class="stretched-link">Logistics</a></h3>
-              <p>Asperiores provident dolor accusamus pariatur dolore nam id audantium ut et iure incidunt molestiae dolor ipsam ducimus occaecati nisi</p>
-            </div>
-          </div><!-- End Card Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="card">
-              <div class="card-img">
-                <img src="{% static 'assets/img/cargo-service.jpg' %}" alt="" class="img-fluid">
-              </div>
-              <h3><a href="service-details.html" class="stretched-link">Cargo</a></h3>
-              <p>Dicta quam similique quia architecto eos nisi aut ratione aut ipsum reiciendis sit doloremque oluptatem aut et molestiae ut et nihil</p>
-            </div>
-          </div><!-- End Card Item -->
+          </div>
+      {% endfor %}
 
         </div>
 

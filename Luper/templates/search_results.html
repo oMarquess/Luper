@@ -1,0 +1,74 @@
+
+{% extends 'base.html' %}
+{% load static %}
+  <!-- End Hero Section -->
+  <main id="main">
+  {% block content %}
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+      <div class="page-header d-flex align-items-center" style="background-image: url('assets/img/page-header.jpg');">
+        <div class="container position-relative">
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-6 text-center">
+              <h2>Search Results for</h2>
+              <p> "{{ query }}"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav>
+        <div class="container">
+          <ol>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li></li>
+          </ol>
+        </div>
+      </nav>
+    </div><!-- End Breadcrumbs -->
+
+
+    <!-- ======= Services Section ======= -->
+    <section id="service" class="services pt-0">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <span>Top Rated Movies</span>
+          <h2>Top Rated Movies</h2>
+
+        </div>
+
+      <div class="container">
+    
+      {% if movies %}
+        <div class="row">
+            {% for movie in movies %}
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <!-- If your movie model has an image field -->
+                        <img src="{{ movie.image_url }}" alt="{{ movie.title }}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ movie.title }}</h5>
+                            <p class="card-text">{{ movie.duration}}</p>
+                            <!-- Additional movie details here -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">{{ movie.year }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No movies found matching your query.</p>
+        {% endif %}
+      </div>
+       
+
+      </div>
+    </section><!-- End Services Section -->
+
+</main>
+
+  {% endblock %}
+
+  <!-- ======= Footer ======= -->

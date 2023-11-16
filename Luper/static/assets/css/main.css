@@ -15,7 +15,9 @@
   --font-default: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-primary: "Inter", sans-serif;
   --font-secondary: "Poppins", sans-serif;
+  --font-tertiary: "Fira Sans", sans-serif; /* Adding Fira Sans as a tertiary font */
 }
+
 
 /* Colors */
 :root {
@@ -33,7 +35,7 @@
 # General
 --------------------------------------------------------------*/
 body {
-  font-family: var(--font-default);
+  font-family: var(--font-tertiary);
   color: var(--color-default);
 }
 
@@ -55,6 +57,26 @@ h5,
 h6 {
   font-family: var(--font-primary);
 }
+
+/*--------------------------------------------------------------
+# Custom
+--------------------------------------------------------------*/
+
+.movie-card-img {
+  width: 100%; /* Make image take full width of the card */
+  height: 250px; /* Reduced height */
+  object-fit: cover; /* Ensures the image covers the area without stretching */
+  object-position: center; /* Center the image within the area */
+}
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribute space evenly within the card */
+}
+.movie-card-body {
+  padding-top: 5px; /* Add some space between image and text */
+}
+
 
 /*--------------------------------------------------------------
 # Sections & Section Header
