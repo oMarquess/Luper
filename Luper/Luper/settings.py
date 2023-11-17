@@ -43,10 +43,12 @@ INSTALLED_APPS = [
     'users',
     'ratings',
     'movies',
+    'allauth_ui',
     'allauth',
     'allauth.account',
     'django_celery_beat',
     'allauth.socialaccount',
+    'widget_tweaks'
 ]
 
 #all_auth_settings
@@ -75,7 +77,7 @@ ROOT_URLCONF = 'Luper.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates', 'accounts')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
