@@ -8,8 +8,15 @@ class MovieRating(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     overall_rating = models.IntegerField()  # Rating out of 10
 
+    AGE_RECOMMENDATION_CHOICES = [
+    ('ALL', 'All Ages'),
+    ('CHILD', 'Children'),
+    ('TEEN', 'Teens'),
+    ('ADULT', 'Adults'),
+    ]
+
     # Age recommendation
-    age_recommendation = models.CharField(max_length=100)  # e.g., "10+", "Teens"
+    age_recommendation = models.CharField(max_length=100, choices=AGE_RECOMMENDATION_CHOICES, default='ALL')  # e.g., "10+", "Teens"
 
     # Mood/Type of the movie
     MOOD_CHOICES = [
@@ -58,7 +65,7 @@ class MovieRating(models.Model):
 ]
 
     theme_label = models.CharField(max_length=50, choices=THEME_CHOICES)  # Predefined labels
-    theme_description = models.TextField(max_length=2000, verbose_name="theme description")  # Open-ended description
+    theme_description = models.TextField(max_length=2000, verbose_name="theme description", default='')  # Open-ended description
 
     created_at = models.DateTimeField(auto_now_add=True)
 

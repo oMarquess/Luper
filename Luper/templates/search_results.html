@@ -32,36 +32,43 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-          <span>Top Rated Movies</span>
-          <h2>Top Rated Movies</h2>
+          <span> Your request </span>
+          <h2>Your request </h2>
 
         </div>
+        <section id="features" class="features">
+          <div class="container">
+              {% if movies %}
+                  {% for movie in movies %}
+                      <div class="row gy-4 align-items-center features-item" data-aos="fade-up">
+                          <!-- Movie Image -->
+                          <div class="col-md-6">
+                              <img src="{{ movie.image_url }}" class="img-fluid" alt="{{ movie.title }}">
+                          </div>
+      
+                          <!-- Movie Details -->
+                          <div class="col-md-6">
+                              <h3>{{ movie.title }}</h3>
+                              <p class="fst-italic">
+                                  Duration: {{ movie.duration }}
+                              </p>
+                              <ul>
+                                  <li><i class="bi bi-check"></i> Release Year: {{ movie.year }}</li>
+                                  <li><i class="bi bi-check"></i> Rating: {{ movie.star_rating }}</li>
+                                  <!-- Add more movie details here if available -->
+                              </ul>
+                              <a href="{{ movie.product_url }}" class="get-a-quote">More Information</a>
+                          </div>
+                      </div><!-- Features Item -->
+                  {% endfor %}
+              {% else %}
+                  <p>No movies found matching your query, Help us update our list now: <a class="get-a-quote" href="{% url 'add-movie' %}">Add {{query}}</a></p>
 
-      <div class="container">
-    
-      {% if movies %}
-        <div class="row">
-            {% for movie in movies %}
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <!-- If your movie model has an image field -->
-                        <img src="{{ movie.image_url }}" alt="{{ movie.title }}" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ movie.title }}</h5>
-                            <p class="card-text">{{ movie.duration}}</p>
-                            <!-- Additional movie details here -->
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">{{ movie.year }}</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <p>No movies found matching your query.</p>
-        {% endif %}
-      </div>
+              {% endif %}
+          </div>
+      </section>
+      
+      
        
 
       </div>
