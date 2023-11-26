@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from movies.models import Movie, Suggestion
 from ratings.models import MovieRating
 from django.db.models import Avg, Count, Max
 from .forms import SuggestionForm
 from django.contrib import messages
+from collections import Counter
 
 import random
 import wikipediaapi
@@ -89,21 +90,33 @@ def suggestion_view(request):
     return render(request, 'suggestion_form.html')  # Render the suggestion form page
 
 
-# def movie_detail(request, movie_id):
-#     movie = get_object_or_404(Movie, pk=movie_id)
-#     ratings = MovieRating.objects.filter(movie=movie)
 
-#     mood_types = Counter(ratings.values_list('mood_type', flat=True))
-#     theme_labels = Counter(ratings.values_list('theme_label', flat=True))
+def movie_detail(request, movie_id):
+    movie = get_object_or_404(Movie, pk=movie_id)
+    ratings = MovieRating.objects.filter(movie=movie)
 
-#     total_ratings = ratings.count()
-#     mood_type_percentages = {mood: (count / total_ratings * 100) for mood, count in mood_types.items()}
-#     theme_label_percentages = {label: (count / total_ratings * 100) for label, count in theme_labels.items()}
+    # Mood types and theme labels
+    mood_types = Counter(ratings.values_list('mood_type', flat=True))
+    theme_labels = Counter(ratings.values_list('theme_label', flat=True))
 
-#     context = {
-#         'movie': movie,
-#         'mood_type_percentages': mood_type_percentages,
-#         'theme_label_percentages': theme_label_percentages,
-#         # Other context data as needed
-#     }
-#     return render(request, 'movie_detail.html', context)
+    total_ratings = ratings.count()
+
+    # Get top two mood types and theme labels
+    top_mood_types = mood_types.most_common(2)
+    top_theme_labels = theme_labels.most_common(2)
+
+    # Calculate percentages
+    mood_type_percentages = {mood: (count / total_ratings * 100) for mood, count in top_mood_types}
+    theme_label_percentages = {label: (count / total_ratings * 100) for label, count in top_theme_labels}
+
+    # Average age recommendation
+    avg_age_recommendation = ratings.aggregate(Avg('age_recommendation'))['age_recommendation__avg']
+
+    context = {
+        'movie': movie,
+        'mood_type_percentages': mood_type_percentages,
+        'theme_label_percentages': theme_label_percentages,
+        'average_age_recommendation': avg_age_recommendation,
+        # Other context data as needed
+    }
+    return render(request, 'movie_details.html', context)
